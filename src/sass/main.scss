@@ -1,0 +1,35 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+button{
+  border: none;
+  outline: none;
+}
+li{
+  list-style: none;
+  color: red;
+}
+.index{
+  overflow: hidden;
+}
+.enter{
+  // animation: changeWidth 2s;
+}
+.leave{
+  // position: absolute
+}
+@keyframes changeWidth {
+  0% {
+    left: 100vw;
+  }
+  // 10%{
+  //   transform: translateX(-90vw)
+  // }
+  // 90% {
+  //   transform: translateX(-10vw)
+  // }
+  100% {
+    left: 0;
+  }
+}
