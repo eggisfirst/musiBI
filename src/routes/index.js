@@ -17,7 +17,7 @@ const MyLoadingComponent = ({isLoading, error}) => {
   }
 }
 
-const [AsyncIndex, AsyncDraw, AsyncAwardListPC] = [
+const [AsyncIndex] = [
   Loadable({
     loader: () => import ('../pages/index'),
     loading: MyLoadingComponent

@@ -3,7 +3,7 @@ import axios from 'axios'
 import Variable from '../../variable'
 import { connect } from 'react-redux'
 import echarts from 'echarts'
-
+import world_bg from '../../assets/images/world.png'
 class World extends Component {
   constructor (props) {
     super(props)
@@ -40,6 +40,8 @@ class World extends Component {
       world: {
         height: '100vh',
         width: '100%',
+        background: `url(${world_bg}) no-repeat`,
+        backgroundSize: '100%',
       },
     }
     return (

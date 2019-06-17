@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import World from '../components/map/world'
 import LeftTop from '../components/leftTop'
 import LeftBot from '../components/leftBot'
+import RightTop from '../components/rightTop'
+import RightBot from '../components/rightBot'
 
 // 组件
 // import Header from '../components/header'
@@ -86,7 +88,7 @@ class Index extends Component {
       },
       right: {
         width: '500px',
-        background: 'blue',
+        // background: 'blue',
         float: 'left',
         height: '100%',
         marginLeft: '-500px'
@@ -99,15 +101,18 @@ class Index extends Component {
         </div>
         <ul className="container" style={styleComponent.container}>
           <li className="main" style={styleComponent.main}>
-            <li className="content" style={styleComponent.content}>
+            <div className="content" style={styleComponent.content}>
               <World />
-            </li>
+            </div>
           </li>
           <li className="left" style={styleComponent.left}>
             <LeftTop />
             <LeftBot />
           </li>
-          <li className="right" style={styleComponent.right}></li>
+          <li className="right" style={styleComponent.right}>
+            <RightTop />
+            <RightBot />
+          </li>
         </ul>
       </div>
     )

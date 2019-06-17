@@ -18,7 +18,7 @@ class World extends Component {
           show: false
         },
         axisLabel: {
-          color: '#BBC5DC'
+          color: 'rgba(187,197,220,0.5)'
         },
         // 坐标轴刻度
         axisTick: {
@@ -33,7 +33,7 @@ class World extends Component {
           show: false
         },
         axisLabel: {
-          color: '#BBC5DC'
+          color: 'rgba(187,197,220,0.5)'
         },
         // 坐标轴刻度
         axisTick: {
@@ -41,7 +41,7 @@ class World extends Component {
         },
         splitLine: {
           lineStyle: {
-            color: '#2F5FE9',
+            color: 'rgba(47,95,233,0.4)',
             width: 1
           }
         },
@@ -64,14 +64,14 @@ class World extends Component {
             x2: 0,
             y2: 1,
             colorStops: [{
-              offset: 0, color: '#007AFF' // 0% 处的颜色
+              offset: 0, color: 'rgba(0,122,255,0.5)' // 0% 处的颜色
             }, {
               offset: 1, color: 'rgba(0,122,255,0)' // 100% 处的颜色
             }]
           }
         },
         itemStyle: {
-          color: '#34ABFF'
+          color: '#34ABFF',
         }
       }]
     }

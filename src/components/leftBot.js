@@ -11,46 +11,50 @@ class World extends Component {
 
     }
     this.option = {
+      color: ['#A859FF','#FF6459','#FFC859','#CBFF59','#50E0D4','#59FFD0','#59F1FF','#59A4FF','#6759FF'],
       tooltip: {
         trigger: 'item',
         formatter: "{a} <br/>{b}: {c} ({d}%)"
       },
       legend: {
-        orient: 'vertical',
-        x: 'left',
-        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+        left: 'center',
+        bottom: 50,
+        itemWidth: 7,
+        itemHeight: 7,
+        itemGap: 22,
+        icon: 'circle',
+        textStyle: {
+          color: '#BBC5DC'
+        }
       },
       series: [
         {
-          name:'访问来源',
+          name:'各品牌销售占比',
           type:'pie',
-          radius: ['50%', '70%'],
+          center: ['50%', '42%'],
+          radius: ['20%', '28%'],
           avoidLabelOverlap: false,
           label: {
             show: true,
-            // normal: {
-            //   show: true,
-            //   position: 'center'
-            // },
+            formatter: '{b}  {d}%',
+            fontSize: 11,
             emphasis: {
               show: true,
               textStyle: {
-                fontSize: '30',
-                fontWeight: 'bold'
+                fontSize: '20',
+                // fontWeight: 'bold'
               }
             }
           },
-          labelLine: {
-            normal: {
-              show: false
-            }
-          },
           data:[
-            {value:335, name:'直接访问'},
-            {value:310, name:'邮件营销'},
-            {value:234, name:'联盟广告'},
-            {value:135, name:'视频广告'},
-            {value:1548, name:'搜索引擎'}
+            {value:335, name:'0769'},
+            {value:310, name:'3D'},
+            {value:234, name:'歌蒂娅'},
+            {value:135, name:'凯奇'},
+            {value:148, name:'助眠'},
+            {value:248, name:'V6'},
+            {value:348, name:'PAULY'},
+            {value:58, name:'HOME'},
           ]
         }
       ]
