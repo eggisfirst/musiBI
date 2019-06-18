@@ -4,7 +4,7 @@ import LeftTop from '../components/leftTop'
 import LeftBot from '../components/leftBot'
 import RightTop from '../components/rightTop'
 import RightBot from '../components/rightBot'
-
+import Center from '../components/center'
 // 组件
 // import Header from '../components/header'
 // import worldOption from '../utils/options/worldOption'
@@ -19,6 +19,7 @@ import '../sass/index.scss'
 
 // 图片引入
 import titleImg from '../assets/images/title.png'
+import world_bg from '../assets/images/world.png'
 // let store = createStore(todoApp)
 
 class Index extends Component {
@@ -48,8 +49,18 @@ class Index extends Component {
         width: '100%',
         height: '100vh',
         minWidth: '1600px',
-        background: '#050A32',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        backgroundColor: '#050A32',
+        position: 'relative'
+      },
+      Bg: {
+        background: `url(${world_bg}) no-repeat`,
+        backgroundSize: '100% 100%',
+        width: '72.81%',
+        height: '100%',
+        position: 'absolute',
+        top:0,
+        left: '18.02%'
       },
       header: {
         height: '108px',
@@ -71,7 +82,7 @@ class Index extends Component {
       main: {
         float: 'left',
         width: '100%',
-        height: '600px'
+        height: '100vh'
       },
       content: {
         marginLeft: '500px',
@@ -96,12 +107,14 @@ class Index extends Component {
     }
     return (
       <div className="index" style={styleComponent.index}>
+        <div style={styleComponent.Bg}></div>
         <div className="header" style={styleComponent.header}>
           <h1 style={styleComponent.header}></h1>
         </div>
         <ul className="container" style={styleComponent.container}>
           <li className="main" style={styleComponent.main}>
             <div className="content" style={styleComponent.content}>
+              <Center />
               <World />
             </div>
           </li>

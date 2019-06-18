@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import echarts from 'echarts'
 import rightBg from '../assets/images/rightBg.png'
 
 class World extends Component {
@@ -72,7 +71,7 @@ class World extends Component {
       }
     }
     return (
-			<div id="leftTop" className="leftTop" style={styleComponent.rightTop}>
+			<div id="rightTop" className="rightTop" style={styleComponent.rightTop}>
         <ul className='ul' style={styleComponent.ul}>
           <li className='li'>
             <div style={styleComponent.Number1}>1286<span style={styleComponent.span1}>.11w</span></div>

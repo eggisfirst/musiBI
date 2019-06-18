@@ -20,16 +20,33 @@ class World extends Component {
 
 	componentDidMount () {
     axios.get('./geoJson/World.json').then((res) => {
-      console.log(123, res)
       echarts.registerMap('world', res.data)
       let myEchart = document.getElementById("world")
       echarts.init(myEchart).setOption({
         series: {
           type: 'map',
           top: 0,
-          left: 0,
+          left: '-4%',
+          right: 0,
           zoom: 0.9,
-          map: 'world'
+          map: 'world',
+          itemStyle: {
+            areaColor: '#2f5fe9',
+            borderColor: 'transparent',
+            borderWidth: 0
+          },
+          // label: {
+          //   formatter: ['{a|12}'].join('/n'),
+          //   rich:{ 
+          //     a: {
+          //       color: 'red'
+          //     }
+          //   }
+          // },
+          data: [{
+            name: 'China',
+            value: 100
+          }]
         }
       })
     })
@@ -40,8 +57,9 @@ class World extends Component {
       world: {
         height: '100vh',
         width: '100%',
-        background: `url(${world_bg}) no-repeat`,
-        backgroundSize: '100%',
+        marginTop: '65px',
+        // background: `url(${world_bg}) no-repeat`,
+        // backgroundSize: '100%',
       },
     }
     return (

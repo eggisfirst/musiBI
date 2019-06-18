@@ -22,7 +22,7 @@ class World extends Component {
         left: '6%',
         right: '15%',
         top: '15%',
-        bottom: '5%',
+        bottom: '7%',
         containLabel: true
       },
       xAxis: {
@@ -43,7 +43,7 @@ class World extends Component {
       },
       yAxis: {
           type: 'category',
-          data: ['BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002'],
+          data: ['BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002'],
           axisTick: {
             show: false
           },
@@ -58,11 +58,17 @@ class World extends Component {
           {
               name: '产品热销排行榜',
               type: 'bar',
-              data: [5000, 4700, 4300, 4000, 3800, 3500,3000,2800],
+              data: [5000, 4700, 4300, 4000, 3800, 3500,3000,2800,2500,2200],
               barWidth: 10,
               itemStyle: {
                 color: '#34ABFF',
                 barBorderRadius: 5
+              },
+              label: {
+                show: true,
+                position: 'right',
+                distance: 10,
+                color: '#BBC5DC'
               }
           },
           
