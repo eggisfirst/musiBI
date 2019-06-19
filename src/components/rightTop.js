@@ -27,7 +27,8 @@ class World extends Component {
         background: `url(${rightBg}) no-repeat`,
         backgroundSize: '100% 100%',
         height: '230px',
-        color: '#fff'
+        color: '#fff',
+        fontFamily: 'myFamily'
       },
       ul: {
         listStyle: 'none',
@@ -53,7 +54,7 @@ class World extends Component {
       Number1: {
         color: '#A859FF',
         fontSize: '46px',
-        marginBottom: '37px'
+        marginBottom: '37px',
       },
       Number2: {
         color: '#34ABFF',

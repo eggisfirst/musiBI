@@ -8,8 +8,12 @@
  * 2. Prevent adjustments of font size after orientation changes in
  *    IE on Windows Phone and in iOS.
  */
-
+ @font-face {
+  font-family: 'myFamily'; 
+  src: url("../assets/font/DIN-Medium.otf");		
+}
  html {
+    /* font-family: 'myFamily';  */
     line-height: 1.15; /* 1 */
     -ms-text-size-adjust: 100%; /* 2 */
     -webkit-text-size-adjust: 100%; /* 2 */

@@ -35,7 +35,7 @@ class World extends Component {
         color: '#89BFFF',
         fontSize: '34px',
         lineHeight: '64px',
-        fontWeight: 'normal'
+        fontWeight: 'normal',
       },
       price: {
         color: '#5FBBF0',
@@ -49,11 +49,14 @@ class World extends Component {
       span :{
         border: '2px solid rgba(90,156,255,0.67)',
         padding: '10px 14px 10px 14px',
-        lineHeight: '64px'
+        lineHeight: '64px',
+        fontFamily: 'myFamily'
       },
       text: {
         fontSize: '36px',
         fontWight: 'normal',
+        fontFamily: 'myFamily'
+
       }
     }
     return (
