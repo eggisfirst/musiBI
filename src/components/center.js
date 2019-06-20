@@ -1,22 +1,29 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import { connect } from 'react-redux'
+import IndexModel from '../utils/index'
+const indexModel = new IndexModel()
 
 class World extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-
-    }
-    
-	}
-
-  componentWillReceiveProps(nextProps){
-    // if(this.props != nextProps) console.log('输出todos为：', nextProps.awards);
+  state = {
+    data: []
+  }
+  getData = () => {
+    indexModel.getPerformance().then(res => {
+      if(res.status === 1) {
+        const data = res.data.replace(/.(.\d)$/g,'')
+        const arr = [],
+              length = data.length;
+        for(let i = 0; i < length; i ++) {
+          arr.push(data[i])
+        }
+        this.setState({
+          data: arr
+        })
+      }
+    })
   }
 
 	componentDidMount () {
-    // echarts.init(document.getElementById('leftTop')).setOption(this.option)
+    this.getData()
   }
 
   render () {
@@ -24,12 +31,6 @@ class World extends Component {
       center: {
         width: '100%',
         textAlign: 'center'
-
-
-        // margin: '0 30px 38px 0',
-        // backgroundSize: '100% 100%',
-        // height: '230px',
-        // color: '#fff'
       },
       title: {
         color: '#89BFFF',
@@ -63,31 +64,23 @@ class World extends Component {
 			<div id="center" className="center" style={styleComponent.center}>
         <h5 style={styleComponent.title}>累计销售业绩</h5>
         <div style={styleComponent.price}>
-          <span style={styleComponent.span}>1</span>
-          <span style={styleComponent.span}>2</span>
-          <span style={styleComponent.span}>3</span>
-          <div style={styleComponent.text}>,</div>
-          <span style={styleComponent.span}>4</span>
-          <span style={styleComponent.span}>5</span>
-          <span style={styleComponent.span}>6</span>
-          <div style={styleComponent.text}>,</div>
-          <span style={styleComponent.span}>7</span>
-          <span style={styleComponent.span}>8</span>
-          <span style={styleComponent.span}>9</span>
+          {
+            this.state.data.map((item, index) => {
+              if(item === ',') {
+                return (
+                  <div style={styleComponent.text} key={item + index}>,</div>
+                )
+              }else {
+                return(
+                  <span style={styleComponent.span} key={item + index}>{item}</span>
+                )
+              }
+            })
+          }
         </div>
 			</div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-
-})
-
-const mapDispatchToProps = dispatch => ({
-
-})
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(World)
+export default World

@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import { connect } from 'react-redux'
 import echarts from 'echarts'
 import Left2 from '../assets/images/left2.png'
+import IndexModel from '../utils/index'
+const indexModel = new IndexModel()
 
 class World extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-
-    }
-    this.option = {
+  myEcharts = ''
+  data = []
+  setOption = () => {
+    return {
       color: ['#A859FF','#FF6459','#FFC859','#CBFF59','#50E0D4','#59FFD0','#59F1FF','#59A4FF','#6759FF'],
       tooltip: {
         trigger: 'item',
-        formatter: "{a} <br/>{b}: {c} ({d}%)"
+        // formatter: "{a} <br/>{b}: {c} ({d}%)"
+        formatter: "{a} <br/>{b}: {c}%"
       },
       legend: {
         left: 'center',
@@ -25,49 +24,114 @@ class World extends Component {
         icon: 'circle',
         textStyle: {
           color: '#BBC5DC'
-        }
+        },
+        data: ['3D','凯奇','V6','歌蒂娅','0769','慕思儿童','HOME','PAULY','思丽德赛','助眠']
       },
       series: [
         {
           name:'各品牌销售占比',
           type:'pie',
+          // radius : [30, 70],
+          // center : ['50%', '42%'],
           center: ['50%', '42%'],
           radius: ['20%', '28%'],
           avoidLabelOverlap: false,
+          // roseType : 'area',
           label: {
             show: true,
-            formatter: '{b}  {d}%',
+            formatter: '{b}  {c}%',
             fontSize: 11,
             emphasis: {
               show: true,
               textStyle: {
                 fontSize: '20',
-                // fontWeight: 'bold'
               }
             }
           },
-          data:[
-            {value:335, name:'0769'},
-            {value:310, name:'3D'},
-            {value:234, name:'歌蒂娅'},
-            {value:135, name:'凯奇'},
-            {value:148, name:'助眠'},
-            {value:248, name:'V6'},
-            {value:348, name:'PAULY'},
-            {value:58, name:'HOME'},
-          ]
+          data:this.data
         }
       ]
     }
-  
-}
-
-  componentWillReceiveProps(nextProps){
-    if(this.props != nextProps) console.log('输出todos为：', nextProps.awards);
   }
-
+  getData = () => {
+    indexModel.getBrandSales().then(res => {
+      this.myEcharts.hideLoading()
+      res.data.map(item => {
+        let length = item.proportion.length
+        let value = item.proportion.slice(0, length - 1)
+        let label = {
+          normal: {
+            show: false
+          },
+          emphasis: {
+            show: true
+          }
+        }
+        let labelLine =  {
+          normal: {
+            show: false
+          },
+          emphasis: {
+            show: true
+          }
+        }
+        switch (item.brand) {
+          case '慕思经典-3D':
+            this.data.push({value: value,name: '3D',label,labelLine})
+            break;
+          case '慕思经典-凯奇':
+            this.data.push({value: value,name: '凯奇',label,labelLine})
+            break;
+          case '慕思时尚-V6/苏斯':
+            this.data.push({value: value,name: 'V6',label,labelLine})
+            break;
+          case '慕思经典-歌蒂娅':
+            this.data.push({value: value,name: '歌蒂娅',label,labelLine})
+            break;
+          case '慕思经典-0769/兰博基尼':
+            this.data.push({value: value,name: '0769',label,labelLine})
+            break;
+          case '慕思儿童-爱迪奇':
+            this.data.push({value: value,name: '慕思儿童',label,labelLine})
+            break;
+          case 'DeRUCCI HOME':
+            this.data.push({value: value,name: 'HOME',label,labelLine})
+            break;
+          case '慕思高端-名品汇':
+            this.data.push({value: value,name: 'PAULY',label,labelLine})
+            break;
+          case '思丽德赛-国际':
+            this.data.push({value: value,name: '思丽德赛',label,labelLine})
+            break;
+          case '慕思助眠品牌':
+            this.data.push({value: value,name: '助眠',label,labelLine})
+            break;
+          default:
+            break;
+        }
+       
+      })
+      this.data.map((item,index) => {
+        if(index < 5) {
+          item.label.normal.show = true 
+          item.labelLine.normal.show = true 
+        }else {
+          return
+        }
+      })
+      const option = this.setOption()
+      this.myEcharts.setOption(option)
+    })
+  }
 	componentDidMount () {
-    echarts.init(document.getElementById('leftBot')).setOption(this.option)
+    this.myEcharts = echarts.init(document.getElementById('leftBot'))
+    this.myEcharts.showLoading({
+      text : "正在加载...",
+      maskColor: 'rgba(255, 255, 255, 0.2)',
+      color: '#007aff',
+      textColor : '#fff'
+    })
+    this.getData()
   }
 
   render() {
@@ -86,14 +150,4 @@ class World extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-
-})
-
-const mapDispatchToProps = dispatch => ({
-
-})
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(World)
+export default World

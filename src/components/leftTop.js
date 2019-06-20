@@ -1,16 +1,29 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import { connect } from 'react-redux'
 import echarts from 'echarts'
 import Left1 from '../assets/images/left1.png'
 
-class World extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
+import IndexModel from '../utils/index'
+const indexModel = new IndexModel()
 
-    }
-    this.option = {
+class World extends Component {
+  myEcharts =  ''
+  leftTopData = []
+  leftTopMounth = []
+  getLeftTop = () => {
+    indexModel.getMonthSales().then(res => {
+      if(res.status === 1) {
+        this.myEcharts.hideLoading()
+        res.data.map(item => {
+          this.leftTopData.push((item.amount/10000).toFixed(2))
+          this.leftTopMounth.push(item.months + '月')
+          const option = this.setOption()
+          this.myEcharts.setOption(option)
+        })
+      }
+    })
+  }
+  setOption = () => {
+    return {
       xAxis: {
         type: 'category',
         // 轴线
@@ -24,7 +37,7 @@ class World extends Component {
         axisTick: {
           show: false
         },
-        data: ['1月', '2月', '3月', '4月', '5月']
+        data: this.leftTopMounth
       },
       yAxis: {
         type: 'value',
@@ -47,7 +60,7 @@ class World extends Component {
         },
       },
       series: [{
-        data: [320, 398, 370, 440, 320],
+        data: this.leftTopData,
         type: 'line',
         label: {
           color: '#fff',
@@ -75,15 +88,17 @@ class World extends Component {
         }
       }]
     }
-    
-	}
-
-  componentWillReceiveProps(nextProps){
-    if(this.props != nextProps) console.log('输出todos为：', nextProps.awards);
   }
-
+  
 	componentDidMount () {
-    echarts.init(document.getElementById('leftTop')).setOption(this.option)
+    this.myEcharts = echarts.init(document.getElementById('leftTop'))
+    this.myEcharts.showLoading({
+      text : "正在加载...",
+      maskColor: 'rgba(255, 255, 255, 0.2)',
+      color: '#007aff',
+      textColor : '#fff'
+    })
+    this.getLeftTop()
   }
 
   render () {
@@ -103,14 +118,4 @@ class World extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-
-})
-
-const mapDispatchToProps = dispatch => ({
-
-})
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(World)
+export default World

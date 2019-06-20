@@ -15,7 +15,7 @@ class App extends Component {
     }
   }
   componentDidMount() {
-    console.log('mangoguang', this)
+    // console.log('mangoguang', this)
   }
   render () {
     return (

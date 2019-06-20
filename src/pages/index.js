@@ -5,12 +5,6 @@ import LeftBot from '../components/leftBot'
 import RightTop from '../components/rightTop'
 import RightBot from '../components/rightBot'
 import Center from '../components/center'
-// 组件
-// import Header from '../components/header'
-// import worldOption from '../utils/options/worldOption'
-
-import { connect } from 'react-redux'
-import { changeAwards } from '../actions'
 
 // 样式引入
 import '../css/normalize.css'
@@ -20,29 +14,10 @@ import '../sass/index.scss'
 // 图片引入
 import titleImg from '../assets/images/title.png'
 import world_bg from '../assets/images/world.png'
-// let store = createStore(todoApp)
+
+
 
 class Index extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      height: window.innerHeight,
-      btnStatus: [true, false, false],
-      totalAmount: ''
-    }
-    this.clickBtn1 = () => {
-      this.setState({btnStatus: [true, false, false]})
-    }
-  }
-  componentWillReceiveProps(nextProps){
-    // if(this.props != nextProps) console.log('输出todos为：', nextProps.todos);
-  }
-  componentWillMount() {
-
-  }
-  componentDidMount () {
-    this.props.changeAwards([123, 234, 3451])
-  }
   render () {
     const styleComponent = {
       index: {
@@ -132,14 +107,4 @@ class Index extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  awards: state.awards
-})
-
-const mapDispatchToProps = dispatch => ({
-  changeAwards: (arr) => dispatch(changeAwards(arr))
-})
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Index)
+export default Index

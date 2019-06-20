@@ -1,26 +1,46 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import { connect } from 'react-redux'
 import rightBg from '../assets/images/rightBg.png'
 
+import IndexModel from '../utils/index'
+const indexModel = new IndexModel()
+
 class World extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-
-    }
-    
-	}
-
-  componentWillReceiveProps(nextProps){
-    if(this.props != nextProps) console.log('输出todos为：', nextProps.awards);
+  state = {
+    category: [],
+    decimals: [],
+    integer: []
   }
-
+  getData = () => {
+    indexModel.getCategorySales().then(res => {
+      if(res.status === 1) {
+        let category =  [],
+            decimals = [],
+            integer = []
+        res.data.map(item => {
+          var arrNum = this.setNumber(item.amount)
+          decimals.push(arrNum[1])
+          integer.push(arrNum[0])
+          category.push(item.category)
+        })
+        this.setState({
+          category,
+          integer,
+          decimals
+        })
+      }
+    })
+  }
+  setNumber = (num) => {
+    num = (num/10000).toFixed(2)
+    let newNum = num.split('.')
+    return [newNum[0],newNum[1]]
+  }
 	componentDidMount () {
-    // echarts.init(document.getElementById('leftTop')).setOption(this.option)
+    this.getData()
   }
 
   render () {
+   
     const styleComponent = {
       rightTop: {
         margin: '0 30px 38px 0',
@@ -53,17 +73,17 @@ class World extends Component {
       },
       Number1: {
         color: '#A859FF',
-        fontSize: '46px',
+        fontSize: '40px',
         marginBottom: '37px',
       },
       Number2: {
         color: '#34ABFF',
-        fontSize: '46px',
+        fontSize: '40px',
         marginBottom: '37px'
       },
       Number3: {
         color: '#50E0D4',
-        fontSize: '46px',
+        fontSize: '40px',
         marginBottom: '37px'
       },
       Product: {
@@ -75,16 +95,25 @@ class World extends Component {
 			<div id="rightTop" className="rightTop" style={styleComponent.rightTop}>
         <ul className='ul' style={styleComponent.ul}>
           <li className='li'>
-            <div style={styleComponent.Number1}>1286<span style={styleComponent.span1}>.11w</span></div>
-            <div style={styleComponent.Product}>床垫销售额</div>
+            <div style={styleComponent.Number1}>
+              {[this.state.integer[0]]}
+              <span style={styleComponent.span1}>.{[this.state.decimals[0]]}w</span>
+            </div>
+            <div style={styleComponent.Product}>{[this.state.category[0]]}销售额</div>
           </li>
           <li>
-            <div style={styleComponent.Number2}>126<span style={styleComponent.span2}>.11w</span></div>
-            <div style={styleComponent.Product}>床品销售额</div>
+            <div style={styleComponent.Number2}>
+              {[this.state.integer[1]]}
+              <span style={styleComponent.span2}>.{[this.state.decimals[1]]}w</span>
+            </div>
+            <div style={styleComponent.Product}>{[this.state.category[1]]}销售额</div>
           </li>
           <li>
-            <div style={styleComponent.Number3}>119<span style={styleComponent.span3}>.11w</span></div>
-            <div style={styleComponent.Product}>床架销售额</div>
+            <div style={styleComponent.Number3}>
+              {[this.state.integer[2]]}
+              <span style={styleComponent.span3}>.{[this.state.decimals[2]]}w</span>
+            </div>
+            <div style={styleComponent.Product}>{[this.state.category[2]]}销售额</div>
           </li>
         </ul>
 			</div>
@@ -92,14 +121,4 @@ class World extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-
-})
-
-const mapDispatchToProps = dispatch => ({
-
-})
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(World)
+export default World

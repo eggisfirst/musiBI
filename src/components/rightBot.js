@@ -1,25 +1,22 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import { connect } from 'react-redux'
 import echarts from 'echarts'
 import Right2 from '../assets/images/right2.png'
+import IndexModel from '../utils/index'
+const indexModel = new IndexModel()
 
 class World extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-
-    }
-    this.option = {
+  myEcharts = ''
+  state = {
+    arrMount: [],
+    arrProduct: []
+  }
+  setOption = () => {
+    return {
       tooltip: {
-          // trigger: 'axis',
-          // axisPointer: {
-          //     type: 'shadow'
-          // }
       },
       grid: {
         show: false,
-        left: '6%',
+        left: '-11%',
         right: '15%',
         top: '15%',
         bottom: '7%',
@@ -43,7 +40,7 @@ class World extends Component {
       },
       yAxis: {
           type: 'category',
-          data: ['BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002','BCQ2-002'],
+          data: this.state.arrProduct,
           axisTick: {
             show: false
           },
@@ -51,38 +48,63 @@ class World extends Component {
             show: false
           },
           axisLabel: {
-            color: 'rgba(187,197,220,0.4)'
+            margin: 94,
+            color: 'rgba(187,197,220,0.4)',
+            align: 'left',
+            verticalAlign: 'middle'
           },
       },
       series: [
           {
-              name: '产品热销排行榜',
-              type: 'bar',
-              data: [5000, 4700, 4300, 4000, 3800, 3500,3000,2800,2500,2200],
-              barWidth: 10,
-              itemStyle: {
-                color: '#34ABFF',
-                barBorderRadius: 5
-              },
-              label: {
-                show: true,
-                position: 'right',
-                distance: 10,
-                color: '#BBC5DC'
-              }
+            name: '产品热销排行榜',
+            type: 'bar',
+            data: this.state.arrMount,
+            barWidth: 10,
+            itemStyle: {
+              color: '#34ABFF',
+              barBorderRadius: 5
+            },
+            label: {
+              show: true,
+              position: 'right',
+              distance: 10,
+              color: '#BBC5DC'
+            }
           },
           
       ]
-  };
-  
-}
-
-  componentWillReceiveProps(nextProps){
-    if(this.props != nextProps) console.log('输出todos为：', nextProps.awards);
+    }
+  }
+  getData = () => {
+    indexModel.getProductList().then(res => {
+      if(res.status === 1) {
+        this.myEcharts.hideLoading()
+        const data = res.data,
+              arrProduct = [],
+              arrMount = []
+        data.map(item => {
+          arrProduct.push(item.model)
+          arrMount.push(item.qty)
+        })
+        this.setState({
+          arrProduct,
+          arrMount
+        })
+        const option = this.setOption()
+        this.myEcharts.setOption(option)
+      }
+    })
   }
 
 	componentDidMount () {
-    echarts.init(document.getElementById('rightBot')).setOption(this.option)
+    this.myEcharts = echarts.init(document.getElementById('rightBot'))
+    this.myEcharts.showLoading({
+      text : "正在加载...",
+      maskColor: 'rgba(255, 255, 255, 0.2)',
+      color: '#007aff',
+      textColor : '#fff'
+    })
+    this.getData()
   }
 
   render() {
@@ -101,14 +123,5 @@ class World extends Component {
   }
 }
 
-const mapStateToProps = state => ({
 
-})
-
-const mapDispatchToProps = dispatch => ({
-
-})
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(World)
+export default World
