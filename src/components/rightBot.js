@@ -82,6 +82,7 @@ class World extends Component {
     indexModel.getProductList().then(res => {
       if(res.status === 1) {
         this.myEcharts.hideLoading()
+        this.clearData()
         const data = res.data,
               arrProduct = [],
               arrMount = []
@@ -102,11 +103,15 @@ class World extends Component {
       }
     })
   }
-  init = () => {
+  clearData = () => {
     this.setState({
       arrMount: [],
       arrProduct: []
     })
+    this.myEcharts.clear()
+  }
+  init = () => {
+    this.myEcharts = echarts.init(document.getElementById('rightBot'))
     this.myEcharts.showLoading({
       text : "正在加载...",
       maskColor: 'rgba(255, 255, 255, 0.1)',
@@ -116,11 +121,9 @@ class World extends Component {
     this.getData()
   }
 	componentDidMount () {
-    this.myEcharts = echarts.init(document.getElementById('rightBot'))
     this.init()
     setInterval(() => {
-      this.myEcharts.clear()
-      this.init()
+      this.getData()
     }, 61000);
   }
 

@@ -56,6 +56,7 @@ class World extends Component {
   getData = () => {
     indexModel.getBrandSales().then(res => {
       this.myEcharts.hideLoading()
+      this.clearData()
       res.data.map(item => {
         let length = item.proportion.length
         let value = item.proportion.slice(0, length - 1)
@@ -123,8 +124,11 @@ class World extends Component {
       this.myEcharts.setOption(option)
     })
   }
-  init = () => {
+  clearData = () => {
     this.data = []
+    this.myEcharts.clear()
+  }
+  init = () => {
     this.myEcharts.showLoading({
       text : "正在加载...",
       maskColor: 'rgba(255, 255, 255, 0.1)',
@@ -137,8 +141,7 @@ class World extends Component {
     this.myEcharts = echarts.init(document.getElementById('leftBot'))
     this.init()
     setInterval(() => {
-      this.myEcharts.clear()
-      this.init()
+      this.getData()
     }, 61000);
   }
 

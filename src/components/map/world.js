@@ -170,7 +170,7 @@ class World extends Component {
     indexModel.getNationalSales().then(res => {
       if(res.status === 1) {
         this.myEchart.hideLoading()
-
+        this.clearData()
         let data = this.setData(res.data)
         var temp = data.slice(0,2)
 
@@ -192,6 +192,11 @@ class World extends Component {
       }
     })
   }
+  clearData = () => {
+    clearInterval(this.timer)
+    this.myEchart.clear()
+    this.series = []
+  }
   init = () => {
     this.myEchart.showLoading({
       text : "正在加载...",
@@ -204,10 +209,7 @@ class World extends Component {
 	componentDidMount () {
     this.initMap()
     setInterval(() => {
-      clearInterval(this.timer)
-      this.myEchart.clear()
-      this.series = []
-      this.init()
+      this.getData()
     }, 61000);
   }
 

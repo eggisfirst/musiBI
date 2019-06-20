@@ -9,9 +9,11 @@ class World extends Component {
   myEcharts =  ''
   leftTopData = []
   leftTopMounth = []
+
   getLeftTop = () => {
     indexModel.getMonthSales().then(res => {
       if(res.status === 1) {
+        this.clearData()
         this.myEcharts.hideLoading()
         res.data.map(item => {
           this.leftTopData.push((item.amount/10000).toFixed(2))
@@ -97,9 +99,12 @@ class World extends Component {
       }]
     }
   }
-  init = () => {
+  clearData =() => {
     this.leftTopData = []
     this.leftTopMounth = []
+    this.myEcharts.clear()
+  }
+  init = () => {
     this.myEcharts.showLoading({
       text : "正在加载...",
       maskColor: 'rgba(255, 255, 255, 0.1)',
@@ -112,8 +117,7 @@ class World extends Component {
     this.myEcharts = echarts.init(document.getElementById('leftTop'))
     this.init()
     setInterval(() => {
-      this.myEcharts.clear()
-      this.init()
+      this.getLeftTop()
     }, 61000);
   }
 
