@@ -24,6 +24,14 @@ class World extends Component {
   }
   setOption = () => {
     return {
+      grid: {
+        show: false,
+        left: '4%',
+        right: '4%',
+        top: '20%',
+        bottom: '10%',
+        containLabel: true
+      },
       xAxis: {
         type: 'category',
         // 轴线
@@ -31,7 +39,7 @@ class World extends Component {
           show: false
         },
         axisLabel: {
-          color: 'rgba(187,197,220,0.5)'
+          color: 'rgba(187,197,220,1)'
         },
         // 坐标轴刻度
         axisTick: {
@@ -46,7 +54,7 @@ class World extends Component {
           show: false
         },
         axisLabel: {
-          color: 'rgba(187,197,220,0.5)'
+          color: 'rgba(187,197,220,1)',
         },
         // 坐标轴刻度
         axisTick: {

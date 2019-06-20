@@ -8,7 +8,7 @@ const indexModel = new IndexModel()
 
 class World extends Component {
   myEchart = ''
-  series = new Array
+  series = []
 
   geoCoordMap = {
     "越南":[108.27,14.05],
@@ -47,9 +47,9 @@ class World extends Component {
 
     if(orientation%2 === 0) {   //方向
       symbol = imageLeft()
-      if(value > 1000000) {
+      if(value > 100000) {
         symbolOffset = ['-50%','-50%']
-        symbolSize = [300,120]
+        symbolSize = [320,120]
         position = ['14%',15]
         offset = [60,0]
       }else {
@@ -60,9 +60,9 @@ class World extends Component {
       }
     }else {
       symbol = imageRight()
-      if(value > 1000000) {
+      if(value > 100000) {
         symbolOffset = ['50%','50%']
-        symbolSize = [220,120]
+        symbolSize = [240,120]
         position = ['30%','74%']
         offset = [60,0]
       }else {
@@ -87,12 +87,31 @@ class World extends Component {
         normal: {
           position: position,
           show: true,
-          formatter: obj.amount,
+          formatter: function (params) {
+            return [`{a|${params.name}} {b|¥} {c|${params.value[2]}}`].join('/n')
+          },
+          // formatter: obj.amount,
           align:'center',
           offset: offset,
-          color: '#fff',
-          fontSize: 20,
-          fontFamily: 'myFamily',
+          rich: {
+            a: {
+              color: '#fff',
+              fontSize: 12,
+              align:'center',
+            },
+            b: {
+              color: '#fff',
+              fontSize: 12,
+              fontFamily: 'myFamily',
+              align:'center',
+            },
+            c: {
+              color: '#fff',
+              fontSize: 20,
+              fontFamily: 'myFamily',
+              align:'center',
+            }
+          }
         }
       }
     }
@@ -141,7 +160,7 @@ class World extends Component {
   }
   //排序
   setData = (data) => {
-    const reg1 = /\,*/g
+    const reg1 = /,*/g
     const reg2 = /(?=\B(\d{3})+$)/g
     data.map(item => {
       item.amount = parseInt(item.amount.replace(reg1,''))
@@ -150,7 +169,7 @@ class World extends Component {
       return b.amount - a.amount
     })
     data.map(item => {
-      item.amount = '¥ ' + item.amount.toString().replace(reg2,',')
+      item.amount = item.amount.toString().replace(reg2,',')
     })
     return data
   }

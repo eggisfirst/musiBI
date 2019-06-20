@@ -37,6 +37,9 @@ class World extends Component {
           axisLine: {
             show: false
           },
+          axisLabel: {
+            color: 'rgba(187,197,220,1)'
+          }
       },
       yAxis: {
           type: 'category',
@@ -49,7 +52,7 @@ class World extends Component {
           },
           axisLabel: {
             margin: 94,
-            color: 'rgba(187,197,220,0.4)',
+            color: 'rgba(187,197,220,1)',
             align: 'left',
             verticalAlign: 'middle'
           },
