@@ -109,7 +109,7 @@ class World extends Component {
     })
     this.myEcharts.showLoading({
       text : "正在加载...",
-      maskColor: 'rgba(255, 255, 255, 0.2)',
+      maskColor: 'rgba(255, 255, 255, 0.1)',
       color: '#007aff',
       textColor : '#fff'
     })
