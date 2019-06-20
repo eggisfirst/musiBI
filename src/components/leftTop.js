@@ -97,16 +97,24 @@ class World extends Component {
       }]
     }
   }
-  
-	componentDidMount () {
-    this.myEcharts = echarts.init(document.getElementById('leftTop'))
+  init = () => {
+    this.leftTopData = []
+    this.leftTopMounth = []
     this.myEcharts.showLoading({
       text : "正在加载...",
-      maskColor: 'rgba(255, 255, 255, 0.2)',
+      maskColor: 'rgba(255, 255, 255, 0.1)',
       color: '#007aff',
       textColor : '#fff'
     })
     this.getLeftTop()
+  }
+	componentDidMount () {
+    this.myEcharts = echarts.init(document.getElementById('leftTop'))
+    this.init()
+    setInterval(() => {
+      this.myEcharts.clear()
+      this.init()
+    }, 61000);
   }
 
   render () {

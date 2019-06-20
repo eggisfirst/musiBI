@@ -123,15 +123,23 @@ class World extends Component {
       this.myEcharts.setOption(option)
     })
   }
-	componentDidMount () {
-    this.myEcharts = echarts.init(document.getElementById('leftBot'))
+  init = () => {
+    this.data = []
     this.myEcharts.showLoading({
       text : "正在加载...",
-      maskColor: 'rgba(255, 255, 255, 0.2)',
+      maskColor: 'rgba(255, 255, 255, 0.1)',
       color: '#007aff',
       textColor : '#fff'
     })
     this.getData()
+  }
+	componentDidMount () {
+    this.myEcharts = echarts.init(document.getElementById('leftBot'))
+    this.init()
+    setInterval(() => {
+      this.myEcharts.clear()
+      this.init()
+    }, 61000);
   }
 
   render() {

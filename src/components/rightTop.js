@@ -37,6 +37,9 @@ class World extends Component {
   }
 	componentDidMount () {
     this.getData()
+    setInterval(() => {
+      this.getData()
+    }, 61000);
   }
 
   render () {

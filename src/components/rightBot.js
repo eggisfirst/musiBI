@@ -86,7 +86,11 @@ class World extends Component {
               arrProduct = [],
               arrMount = []
         data.map(item => {
-          arrProduct.push(item.model)
+          let tempProduct = item.model
+          if(item.model.length > 10) {
+            tempProduct = item.model.slice(0,10) + '...'
+          }
+          arrProduct.push(tempProduct)
           arrMount.push(item.qty)
         })
         this.setState({
@@ -98,9 +102,11 @@ class World extends Component {
       }
     })
   }
-
-	componentDidMount () {
-    this.myEcharts = echarts.init(document.getElementById('rightBot'))
+  init = () => {
+    this.setState({
+      arrMount: [],
+      arrProduct: []
+    })
     this.myEcharts.showLoading({
       text : "正在加载...",
       maskColor: 'rgba(255, 255, 255, 0.2)',
@@ -108,6 +114,14 @@ class World extends Component {
       textColor : '#fff'
     })
     this.getData()
+  }
+	componentDidMount () {
+    this.myEcharts = echarts.init(document.getElementById('rightBot'))
+    this.init()
+    setInterval(() => {
+      this.myEcharts.clear()
+      this.init()
+    }, 61000);
   }
 
   render() {

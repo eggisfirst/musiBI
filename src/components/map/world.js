@@ -9,7 +9,7 @@ const indexModel = new IndexModel()
 class World extends Component {
   myEchart = ''
   series = []
-
+  timer = ''
   geoCoordMap = {
     "越南":[108.27,14.05],
     "格鲁吉亚":[43.35,42.31],
@@ -144,18 +144,11 @@ class World extends Component {
       series: this.series
     }
   }
-  init = () => {
+  initMap = () => {
     axios.get('./geoJson/World.json').then((res) => {
       echarts.registerMap('world', res.data)
       this.myEchart = echarts.init(document.getElementById("world"))
-      this.myEchart.showLoading({
-        text : "正在加载...",
-        maskColor: 'rgba(255, 255, 255, 0.2)',
-        color: '#007aff',
-        textColor : '#fff'
-      })
-
-      this.getData()
+      this.init()
     })
   }
   //排序
@@ -185,7 +178,7 @@ class World extends Component {
         this.myEchart.setOption(option)
 
         var i = 0
-        setInterval(() => {
+        this.timer = setInterval(() => {
           this.series = []
           i += 2
           if( i > data.length) {
@@ -199,8 +192,23 @@ class World extends Component {
       }
     })
   }
+  init = () => {
+    this.myEchart.showLoading({
+      text : "正在加载...",
+      maskColor: 'rgba(255, 255, 255, 0.2)',
+      color: '#007aff',
+      textColor : '#fff'
+    })
+    this.getData()
+  }
 	componentDidMount () {
-    this.init()
+    this.initMap()
+    setInterval(() => {
+      clearInterval(this.timer)
+      this.myEchart.clear()
+      this.series = []
+      this.init()
+    }, 61000);
   }
 
   render () {
