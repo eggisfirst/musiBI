@@ -10,6 +10,9 @@ class World extends Component {
   myEchart = ''
   series = []
   timer = ''
+  selecttedCountry1 = ''
+  selecttedCountry2 = ''
+  //国家坐标
   geoCoordMap = {
     "越南":[108.27,14.05],
     "格鲁吉亚":[43.35,42.31],
@@ -18,16 +21,78 @@ class World extends Component {
     "中国香港": [114.22,22.30],
     "加拿大": [-106.35,56.13],
     "日本": [138.25,36.20],
-    '俄罗斯联邦': [105.31,54.52],
+    '俄罗斯联邦': [105.31,64.52],
     '新西兰': [174.88,-40.90],
     '印度': [78.96,24.59],
     '阿联酋': [53.84,23.42],
-    '澳大利亚': [116.77,-22.27],
+    '澳大利亚': [120.77,-22.27],
     '美国': [-95.71,37.09],
-    '中国': [104.20,35.86],
-    '英国': [-0.12,51.50]
+    '中国': [108.20,32.86],
+    '英国': [-0.12,51.50],
+    '马来西亚': [102.44,4.44]
   }
-  
+  //对应地图上的名称
+  getName = (country) => {
+    switch (country) {
+      case '中国':
+        country = 'China'
+        break;
+      case '澳大利亚':
+        country = 'Australia'
+        break;
+      case '英国':
+        country = 'United Kingdom'
+        break;
+      case '加拿大':
+        country = 'Canada'
+        break;
+      case '德国':
+        country = 'Germany'
+        break;
+      case '越南':
+        country = 'Vietnam'
+        break;
+      case '格鲁吉亚':
+        country = 'Georgia'
+        break;
+      case '菲律宾':
+        country = 'Philippines'
+        break;
+      case '中国香港':
+        country = 'China'
+        break;
+      case '日本':
+        country = 'Japan'
+        break;
+      case '俄罗斯联邦':
+        country = 'Russia'
+        break;
+      case '新西兰':
+          country = 'New Zealand'
+          break;
+      case '印度':
+        country = 'India'
+        break;
+      case '阿联酋':
+        country = 'United Arab Emirates'
+        break;
+      case '马来西亚':
+        country = 'Malaysia'
+        break;
+      case '美国':
+        country = 'United States of America'
+          break;
+      default:
+        break;
+    }
+    return country
+  }
+  //设置选中区域名称
+  setName = (temp) => {
+    this.selecttedCountry1 = this.getName(temp[0].state)
+    this.selecttedCountry2 = this.getName(temp[1].state)
+  }
+  //匹配坐标返回需要的data
   convertData =  (data) => {
     var res = [];
     for (var i = 0; i < data.length; i++) {
@@ -35,41 +100,42 @@ class World extends Component {
         if (geoCoord) {
             res.push({
                 name: data[i].name,
-                value: geoCoord.concat(data[i].value)
+                value: geoCoord.concat(data[i].value),
             });
         }
     }
     return res;
   }
+  //设置series
   setSeries = (obj,orientation) => {
     let symbolOffset,symbolSize,position,symbol,offset;
     let value = obj.amount.replace(/[^0-9]/ig,"")
 
     if(orientation%2 === 0) {   //方向
       symbol = imageLeft()
-      if(value > 100000) {
+      if(value > 1000000) {
         symbolOffset = ['-50%','-50%']
-        symbolSize = [320,120]
-        position = ['14%',15]
+        symbolSize = [340,120]
+        position = ['16%',15]
         offset = [60,0]
       }else {
         symbolOffset = ['-50%','-50%']
-        symbolSize = [200,100]
-        position = [30,11]
-        offset = [40,0]
+        symbolSize = [260,100]
+        position = ['15%','10%']
+        offset = [50,0]
       }
     }else {
       symbol = imageRight()
-      if(value > 100000) {
+      if(value > 1000000) {
         symbolOffset = ['50%','50%']
-        symbolSize = [240,120]
-        position = ['30%','74%']
+        symbolSize = [260,120]
+        position = ['32%','74%']
         offset = [60,0]
       }else {
         symbolOffset = ['50%','50%']
-        symbolSize = [150,100]
-        position = ['30%','74%']
-        offset = [40,0]
+        symbolSize = [200,100]
+        position = ['30%','72%']
+        offset = [50,0]
 
       }
     }
@@ -79,6 +145,7 @@ class World extends Component {
       data: this.convertData([
         {name: obj.state, value: obj.amount},
       ]),
+     
       symbolOffset: symbolOffset,
       symbolSize: symbolSize,
       showAllSymbol: true,
@@ -90,6 +157,7 @@ class World extends Component {
           formatter: function (params) {
             return [`{a|${params.name}} {b|¥} {c|${params.value[2]}}`].join('/n')
           },
+          
           // formatter: obj.amount,
           align:'center',
           offset: offset,
@@ -116,6 +184,7 @@ class World extends Component {
       }
     }
   }
+  //
   setOption = (data) => {
     data.map((item,index) => {
       this.series.push(this.setSeries(item,index))
@@ -132,14 +201,51 @@ class World extends Component {
         top: 0,
         left: '-4%',
         right: 0,
-        zoom: 0.9,
+        zoom: 0.76,
         itemStyle: {
           normal: {
             areaColor: '#2f5fe9',
-            borderColor: 'transparent'
+            borderColor: 'transparent',
+            
+          },
+          emphasis:{
+            areaColor: '#59a4ff',
+            borderColor: 'transparent',
+            color: '#59a4ff'
           }
         },
-       
+        label: {
+          emphasis:{
+            color: '#FFF',
+            fontSize: 16
+          }
+        },
+        regions: [{         //设置选中区域
+          name: this.selecttedCountry1,
+          itemStyle: {
+            areaColor: '#59a4ff',
+            borderColor: 'transparent',
+            color: '#59a4ff'
+          }, 
+          label: {
+            show: true,
+            color: '#FFF',
+            fontSize: 16
+          },
+        },
+        {
+          name: this.selecttedCountry2,
+          itemStyle: {
+            areaColor: '#59a4ff',
+            borderColor: 'transparent',
+            color: '#59a4ff'
+          }, 
+          label: {
+            show: true,
+            color: '#FFF',
+            fontSize: 16
+          },
+      }]
       },
       series: this.series
     }
@@ -166,6 +272,7 @@ class World extends Component {
     })
     return data
   }
+  //请求数据
   getData = () => {
     indexModel.getNationalSales().then(res => {
       if(res.status === 1) {
@@ -174,17 +281,21 @@ class World extends Component {
         let data = this.setData(res.data)
         var temp = data.slice(0,2)
 
+        this.setName(temp)
+
         let option = this.setOption(temp)
         this.myEchart.setOption(option)
-
+       
         var i = 0
+        var len = data.length
         this.timer = setInterval(() => {
-          this.series = []
           i += 2
-          if( i > data.length) {
+          if( i >= len) {
             i = 0
           }
           temp = data.slice(i,i+2)
+          this.setName(temp)
+          this.series = []
           option = this.setOption(temp)
           this.myEchart.clear()
           this.myEchart.setOption(option)
@@ -216,9 +327,16 @@ class World extends Component {
   render () {
     const styleComponent = {
       world: {
-        height: '61vh',
-        width: '100%',
-        marginTop: '45px'
+        height: '600px',
+        width: '1080px',
+        marginTop: '45px',
+        position: 'absolute',
+        zIndex: 999,
+        top: '50%',
+        left: '50%',
+        marginLeft: '-540px',
+        marginTop: '-200px',
+
       },
     }
     return (
