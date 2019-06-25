@@ -66,18 +66,18 @@ class Index extends Component {
         height: '100%'
       },
       left: {
-        width: '500px',
+        width: '420px',
         float: 'left',
         height: '100%',
         marginLeft: '-100%',
         borderLeft: '1px'
       },
       right: {
-        width: '500px',
+        width: '420px',
         // background: 'blue',
         float: 'left',
         height: '100%',
-        marginLeft: '-500px'
+        marginLeft: '-420px'
       }
     }
     return (

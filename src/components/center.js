@@ -52,9 +52,12 @@ class World extends Component {
       },
       span :{
         border: '2px solid rgba(90,156,255,0.67)',
-        padding: '10px 14px 10px 14px',
-        lineHeight: '64px',
-        fontFamily: 'myFamily'
+        // padding: '10px 14px 10px 14px',
+        width: '50px',
+        height: '73px',
+        lineHeight: '73px',
+        fontFamily: 'myFamily',
+        boxSizing: 'border-box'
       },
       text: {
         fontSize: '36px',

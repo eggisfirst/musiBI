@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import echarts from 'echarts'
-import Right2 from '../assets/images/right2.png'
+import Right2 from '../assets/images/rightb.png'
 import IndexModel from '../utils/index'
 const indexModel = new IndexModel()
 
@@ -16,8 +16,8 @@ class World extends Component {
       },
       grid: {
         show: false,
-        left: '-11%',
-        right: '15%',
+        left: '-14%',
+        right: '8%',
         top: '15%',
         bottom: '7%',
         containLabel: true
@@ -51,7 +51,7 @@ class World extends Component {
             show: false
           },
           axisLabel: {
-            margin: 94,
+            margin: 86,
             color: 'rgba(187,197,220,1)',
             align: 'left',
             verticalAlign: 'middle'

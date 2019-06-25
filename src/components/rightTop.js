@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import rightBg from '../assets/images/rightBg.png'
+import rightBg from '../assets/images/right.png'
 
 import IndexModel from '../utils/index'
 const indexModel = new IndexModel()
@@ -64,34 +64,34 @@ class World extends Component {
       },
       span1 :{
         color: '#A859FF',
-        fontSize: '20px',
+        fontSize: '16px',
       },
       span2 :{
         color: '#34ABFF',
-        fontSize: '20px',
+        fontSize: '16px',
       },
       span3 :{
         color: '#50E0D4',
-        fontSize: '20px',
+        fontSize: '16px',
       },
       Number1: {
         color: '#A859FF',
-        fontSize: '40px',
+        fontSize: '38px',
         marginBottom: '37px',
       },
       Number2: {
         color: '#34ABFF',
-        fontSize: '40px',
+        fontSize: '38px',
         marginBottom: '37px'
       },
       Number3: {
         color: '#50E0D4',
-        fontSize: '40px',
+        fontSize: '38px',
         marginBottom: '37px'
       },
       Product: {
-        fontSize: '15px',
-        fontWeight: 'bold'
+        fontSize: '20px',
+        // fontWeight: 'bold'
       }
     }
     return (
@@ -100,21 +100,24 @@ class World extends Component {
           <li className='li'>
             <div style={styleComponent.Number1}>
               {[this.state.integer[0]]}
-              <span style={styleComponent.span1}>.{[this.state.decimals[0]]}w</span>
+              {/* <span style={styleComponent.span1}>.{[this.state.decimals[0]]}w</span> */}
+              <span style={styleComponent.span1}>万</span>
             </div>
             <div style={styleComponent.Product}>{[this.state.category[0]]}销售额</div>
           </li>
           <li>
             <div style={styleComponent.Number2}>
               {[this.state.integer[1]]}
-              <span style={styleComponent.span2}>.{[this.state.decimals[1]]}w</span>
+              {/* <span style={styleComponent.span2}>.{[this.state.decimals[1]]}w</span> */}
+              <span style={styleComponent.span2}>万</span>
             </div>
             <div style={styleComponent.Product}>{[this.state.category[1]]}销售额</div>
           </li>
           <li>
             <div style={styleComponent.Number3}>
               {[this.state.integer[2]]}
-              <span style={styleComponent.span3}>.{[this.state.decimals[2]]}w</span>
+              {/* <span style={styleComponent.span3}>.{[this.state.decimals[2]]}w</span> */}
+              <span style={styleComponent.span3}>万</span>
             </div>
             <div style={styleComponent.Product}>{[this.state.category[2]]}销售额</div>
           </li>

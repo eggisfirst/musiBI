@@ -18,14 +18,14 @@ class World extends Component {
     "格鲁吉亚":[43.35,42.31],
     "德国":[10.45,51.16],
     "菲律宾": [121.77,12.87],
-    "中国香港": [114.22,22.30],
+    "中国香港": [108.20,32.86],
     "加拿大": [-106.35,56.13],
     "日本": [138.25,36.20],
     '俄罗斯联邦': [105.31,64.52],
     '新西兰': [174.88,-40.90],
     '印度': [78.96,24.59],
     '阿联酋': [53.84,23.42],
-    '澳大利亚': [120.77,-22.27],
+    '澳大利亚': [144.77,-32.27],
     '美国': [-95.71,37.09],
     '中国': [108.20,32.86],
     '英国': [-0.12,51.50],
@@ -111,7 +111,7 @@ class World extends Component {
     let symbolOffset,symbolSize,position,symbol,offset;
     let value = obj.amount.replace(/[^0-9]/ig,"")
 
-    if(orientation%2 === 0) {   //方向
+    if(orientation%2 !== 0) {   //方向
       symbol = imageLeft()
       if(value > 1000000) {
         symbolOffset = ['-50%','-50%']
@@ -164,7 +164,7 @@ class World extends Component {
           rich: {
             a: {
               color: '#fff',
-              fontSize: 12,
+              fontSize: 18,
               align:'center',
             },
             b: {
@@ -172,10 +172,12 @@ class World extends Component {
               fontSize: 12,
               fontFamily: 'myFamily',
               align:'center',
+              fontWeight: 'normal',
+              verticalAlign:'bottom'
             },
             c: {
               color: '#fff',
-              fontSize: 20,
+              fontSize: 18,
               fontFamily: 'myFamily',
               align:'center',
             }
@@ -328,13 +330,13 @@ class World extends Component {
     const styleComponent = {
       world: {
         height: '600px',
-        width: '1080px',
+        width: '1160px',
         marginTop: '45px',
         position: 'absolute',
         zIndex: 999,
         top: '50%',
         left: '50%',
-        marginLeft: '-540px',
+        marginLeft: '-580px',
         marginTop: '-200px',
 
       },

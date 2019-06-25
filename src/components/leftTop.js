@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import echarts from 'echarts'
-import Left1 from '../assets/images/left1.png'
+import Left1 from '../assets/images/left.png'
 
 import IndexModel from '../utils/index'
 const indexModel = new IndexModel()
