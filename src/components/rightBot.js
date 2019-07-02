@@ -17,7 +17,7 @@ class World extends Component {
       grid: {
         show: false,
         left: '-14%',
-        right: '8%',
+        right: '12%',
         top: '15%',
         bottom: '7%',
         containLabel: true
@@ -83,9 +83,13 @@ class World extends Component {
       if(res.status === 1) {
         this.myEcharts.hideLoading()
         this.clearData()
-        const data = res.data,
+        let data = res.data,
               arrProduct = [],
               arrMount = []
+        //倒序
+        data.sort(function(a,b) {
+          return a.qty - b.qty
+        })
         data.map(item => {
           let tempProduct = item.model
           if(item.model.length > 10) {
@@ -124,7 +128,7 @@ class World extends Component {
     this.init()
     setInterval(() => {
       this.getData()
-    }, 61000);
+    }, 5100);
   }
 
   render() {

@@ -18,18 +18,21 @@ class World extends Component {
     "格鲁吉亚":[43.35,42.31],
     "德国":[10.45,51.16],
     "菲律宾": [121.77,12.87],
-    "中国香港": [108.20,32.86],
-    "加拿大": [-106.35,56.13],
+    "中国香港": [114.52,26.2],
+    "加拿大": [-98.35,56.13],
     "日本": [138.25,36.20],
     '俄罗斯联邦': [105.31,64.52],
-    '新西兰': [174.88,-40.90],
-    '印度': [78.96,24.59],
+    '新西兰': [174.88,-44.90],
+    '印度': [74.96,16.59],
     '阿联酋': [53.84,23.42],
     '澳大利亚': [144.77,-32.27],
     '美国': [-95.71,37.09],
     '中国': [108.20,32.86],
     '英国': [-0.12,51.50],
-    '马来西亚': [102.44,4.44]
+    '马来西亚': [102.44,4.44],
+    '安哥拉': [33.00,40.02],
+    '尼日利亚':[6.84,9.06],
+    '法国':[1.32,47.23]
   }
   //对应地图上的名称
   getName = (country) => {
@@ -82,6 +85,15 @@ class World extends Component {
       case '美国':
         country = 'United States of America'
           break;
+      case '法国':
+        country = 'France'
+          break;
+      case '安哥拉':
+        country = 'Turkey'
+          break;
+      case '尼日利亚':
+        country = 'Nigeria'
+          break;
       default:
         break;
     }
@@ -89,8 +101,13 @@ class World extends Component {
   }
   //设置选中区域名称
   setName = (temp) => {
-    this.selecttedCountry1 = this.getName(temp[0].state)
-    this.selecttedCountry2 = this.getName(temp[1].state)
+    if(temp.length == 2) {
+      this.selecttedCountry1 = this.getName(temp[0].state)
+      this.selecttedCountry2 = this.getName(temp[1].state)
+    }else {
+      this.selecttedCountry1 = this.getName(temp[0].state)
+    }
+    
   }
   //匹配坐标返回需要的data
   convertData =  (data) => {
@@ -120,9 +137,9 @@ class World extends Component {
         offset = [60,0]
       }else {
         symbolOffset = ['-50%','-50%']
-        symbolSize = [260,100]
+        symbolSize = [300,100]
         position = ['15%','10%']
-        offset = [50,0]
+        offset = [60,0]
       }
     }else {
       symbol = imageRight()
@@ -133,9 +150,9 @@ class World extends Component {
         offset = [60,0]
       }else {
         symbolOffset = ['50%','50%']
-        symbolSize = [200,100]
+        symbolSize = [240,100]
         position = ['30%','72%']
-        offset = [50,0]
+        offset = [60,0]
 
       }
     }
@@ -189,7 +206,11 @@ class World extends Component {
   //
   setOption = (data) => {
     data.map((item,index) => {
-      this.series.push(this.setSeries(item,index))
+      if(item.state === '新西兰'){
+        this.series.push(this.setSeries(item,1))
+      }else {
+        this.series.push(this.setSeries(item,index))
+      }
     })
     return {
       tooltip: {
@@ -281,7 +302,7 @@ class World extends Component {
         this.myEchart.hideLoading()
         this.clearData()
         let data = this.setData(res.data)
-        var temp = data.slice(0,2)
+        var temp = data.slice(18,20)
 
         this.setName(temp)
 
@@ -329,15 +350,14 @@ class World extends Component {
   render () {
     const styleComponent = {
       world: {
-        height: '600px',
-        width: '1160px',
-        marginTop: '45px',
+        height: '650px',
+        width: '1180px',
         position: 'absolute',
         zIndex: 999,
         top: '50%',
         left: '50%',
-        marginLeft: '-580px',
-        marginTop: '-200px',
+        marginLeft: '-600px',
+        marginTop: '-250px',
 
       },
     }

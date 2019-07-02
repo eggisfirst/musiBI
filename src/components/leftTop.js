@@ -118,7 +118,7 @@ class World extends Component {
     this.init()
     setInterval(() => {
       this.getLeftTop()
-    }, 61000);
+    }, 5100);
   }
 
   render () {

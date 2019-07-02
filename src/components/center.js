@@ -26,14 +26,15 @@ class World extends Component {
     this.getData()
     setInterval(() => {
       this.getData()
-    }, 61000);
+    }, 5100);
   }
 
   render () {
     const styleComponent = {
       center: {
-        width: '100%',
-        textAlign: 'center'
+        width: '90%',
+        textAlign: 'center',
+        margin: '0 auto'
       },
       title: {
         color: '#89BFFF',
