@@ -106,8 +106,9 @@ class World extends Component {
       this.selecttedCountry2 = this.getName(temp[1].state)
     }else {
       this.selecttedCountry1 = this.getName(temp[0].state)
+      this.selecttedCountry2 = ''
     }
-    
+   
   }
   //匹配坐标返回需要的data
   convertData =  (data) => {
@@ -302,7 +303,7 @@ class World extends Component {
         this.myEchart.hideLoading()
         this.clearData()
         let data = this.setData(res.data)
-        var temp = data.slice(18,20)
+        var temp = data.slice(0,2)
 
         this.setName(temp)
 
